@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Whistle Static Demo Pages</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --red: #c91f1f;
+        --red-dark: #8f1313;
+        --yellow: #ffd340;
+        --ink: #221814;
+        --muted: #665a50;
+        --line: #eadfca;
+        --surface: #fffdf7;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, rgba(255, 211, 64, 0.26), rgba(201, 31, 31, 0.08) 45%, #fffdf7);
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      main {
+        width: min(1080px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 48px 0;
+      }
+
+      .demo-hero {
+        display: grid;
+        gap: 18px;
+        margin-bottom: 28px;
+      }
+
+      .demo-kicker {
+        width: fit-content;
+        border-radius: 999px;
+        background: var(--red);
+        color: #fff;
+        padding: 8px 12px;
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 820px;
+        margin: 0;
+        color: var(--red-dark);
+        font-size: clamp(34px, 8vw, 72px);
+        line-height: 0.95;
+        letter-spacing: 0;
+      }
+
+      .demo-hero p {
+        max-width: 760px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 18px;
+        font-weight: 720;
+        line-height: 1.5;
+      }
+
+      .demo-warning {
+        border: 1px solid rgba(201, 31, 31, 0.26);
+        border-left: 8px solid var(--red);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.82);
+        padding: 16px 18px;
+        font-weight: 760;
+        line-height: 1.45;
+      }
+
+      .demo-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 22px;
+      }
+
+      .demo-card {
+        display: grid;
+        gap: 8px;
+        min-height: 128px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        padding: 18px;
+        color: var(--ink);
+        text-decoration: none;
+        box-shadow: 0 14px 30px rgba(34, 24, 20, 0.08);
+      }
+
+      .demo-card:focus-visible,
+      .demo-card:hover {
+        outline: 3px solid rgba(201, 31, 31, 0.28);
+        border-color: rgba(201, 31, 31, 0.42);
+      }
+
+      .demo-card span {
+        color: var(--red-dark);
+        font-size: 18px;
+        font-weight: 940;
+      }
+
+      .demo-card strong {
+        color: var(--muted);
+        font-size: 13px;
+        word-break: break-word;
+      }
+
+      .demo-footer {
+        margin-top: 26px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      @media (max-width: 780px) {
+        main {
+          width: min(100% - 20px, 560px);
+          padding: 28px 0;
+        }
+
+        .demo-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="demo-hero" aria-labelledby="demo-title">
+        <span class="demo-kicker">SAMPLE DATA - DEMO ONLY</span>
+        <h1 id="demo-title">Whistle static demo pages</h1>
+        <p>Browser-local demonstrations generated from the real standalone app exports. These pages use bundled fixture data and do not connect to production, staging, or any live government system.</p>
+      </section>
+
+      <section class="demo-warning" aria-label="Demo publication notice">
+        This is a prototype demonstration only. It is not affiliated with any government, department, elected representative, party, or official service. Do not enter real complaints, phone numbers, passwords, OTPs, evidence, or personal data.
+      </section>
+
+      <nav class="demo-grid" aria-label="Demo pages">
+        <a class="demo-card" href="./citizen.demo.html">
+        <span>Citizen Mobile PWA</span>
+        <strong>citizen.demo.html</strong>
+      </a>
+<a class="demo-card" href="./verification.demo.html">
+        <span>Verification Console</span>
+        <strong>verification.demo.html</strong>
+      </a>
+<a class="demo-card" href="./mla.demo.html">
+        <span>MLA Dashboard</span>
+        <strong>mla.demo.html</strong>
+      </a>
+<a class="demo-card" href="./ministry.demo.html">
+        <span>Minister Dashboard</span>
+        <strong>ministry.demo.html</strong>
+      </a>
+<a class="demo-card" href="./cm-cell.demo.html">
+        <span>CM Cell Dashboard</span>
+        <strong>cm-cell.demo.html</strong>
+      </a>
+<a class="demo-card" href="./admin.demo.html">
+        <span>Admin Console</span>
+        <strong>admin.demo.html</strong>
+      </a>
+      </nav>
+
+      <p class="demo-footer">Every app page carries an in-page SAMPLE DATA - DEMO ONLY watermark and uses synthetic fixture data.</p>
+    </main>
+  </body>
+</html>
