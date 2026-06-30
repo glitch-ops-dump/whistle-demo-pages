@@ -139,6 +139,29 @@ import{i as e,n as t,r as n,t as r}from"data:text/javascript;base64,dmFyIGU9T2Jq
   color: rgba(255, 255, 255, 0.82);
   font-weight: 650;
 }
+#whistle-demo-hub {
+  position: fixed;
+  right: 12px;
+  bottom: 84px;
+  z-index: 2147483647;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  border: 1px solid rgba(201, 31, 31, 0.24);
+  border-radius: 8px;
+  padding: 0 11px;
+  color: #7f1d1d;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.14);
+  font-size: 12px;
+  font-weight: 900;
+  text-decoration: none;
+}
+#whistle-demo-hub:hover,
+#whistle-demo-hub:focus-visible {
+  outline: 3px solid rgba(201, 31, 31, 0.24);
+}
 @media (max-width: 620px) {
   #whistle-demo-label {
     right: 8px;
@@ -146,13 +169,18 @@ import{i as e,n as t,r as n,t as r}from"data:text/javascript;base64,dmFyIGU9T2Jq
     max-width: calc(100vw - 16px);
     font-size: 11px;
   }
+  #whistle-demo-hub {
+    right: 8px;
+    bottom: 86px;
+  }
   #whistle-demo-watermark {
     font-size: 42px;
   }
 }
 @media print {
   #whistle-demo-watermark,
-  #whistle-demo-label {
+  #whistle-demo-label,
+  #whistle-demo-hub {
     display: block !important;
   }
 }
@@ -162,6 +190,7 @@ import{i as e,n as t,r as n,t as r}from"data:text/javascript;base64,dmFyIGU9T2Jq
 <!-- Whistle demo watermark: generated from exports/standalone/whistle-mla-mockup.html. -->
 <div id="whistle-demo-watermark" aria-hidden="true">SAMPLE DATA
 DEMO ONLY</div>
+<a id="whistle-demo-hub" href="./index.html">All demos</a>
 <div id="whistle-demo-label" role="note" aria-label="SAMPLE DATA - DEMO ONLY">
   SAMPLE DATA - DEMO ONLY
   <span>MLA Dashboard. Synthetic fixture data; not connected to production systems.</span>

@@ -5,16 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
     <title>Whistle Static Demo Pages</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23c91f1f'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-size='16' font-family='Arial' font-weight='900' fill='white'%3EW%3C/text%3E%3C/svg%3E" />
     <style>
       :root {
         color-scheme: light;
         --red: #c91f1f;
-        --red-dark: #8f1313;
-        --yellow: #ffd340;
-        --ink: #221814;
-        --muted: #665a50;
-        --line: #eadfca;
-        --surface: #fffdf7;
+        --red-dark: #8f1515;
+        --ink: #111827;
+        --muted: #4b5565;
+        --line: #dbe3ef;
+        --soft: #f5f7fb;
+        --dark: #0d121a;
+        --dark-2: #151b24;
+        --green: #167044;
+        --blue: #2f6eea;
+        --gold: #f2b529;
       }
 
       * {
@@ -24,160 +29,1415 @@
       body {
         margin: 0;
         min-height: 100vh;
-        background: linear-gradient(135deg, rgba(255, 211, 64, 0.26), rgba(201, 31, 31, 0.08) 45%, #fffdf7);
+        background: #f2f5fa;
         color: var(--ink);
         font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       }
 
-      main {
-        width: min(1080px, calc(100% - 32px));
-        margin: 0 auto;
-        padding: 48px 0;
+      .demo-shell {
+        min-height: 100vh;
       }
 
-      .demo-hero {
-        display: grid;
-        gap: 18px;
-        margin-bottom: 28px;
-      }
-
-      .demo-kicker {
-        width: fit-content;
-        border-radius: 999px;
-        background: var(--red);
+      .hero-band {
+        position: relative;
+        overflow: hidden;
+        min-height: 348px;
+        background:
+          radial-gradient(circle at 18% 0%, rgba(201, 31, 31, 0.22), transparent 28%),
+          linear-gradient(135deg, #070b11 0%, var(--dark) 54%, #151d29 100%);
         color: #fff;
-        padding: 8px 12px;
-        font-size: 12px;
-        font-weight: 900;
-        letter-spacing: 0;
-        text-transform: uppercase;
+      }
+
+      .hero-band::before,
+      .hero-band::after {
+        content: "";
+        position: absolute;
+        pointer-events: none;
+      }
+
+      .hero-band::before {
+        inset: 0;
+        background:
+          radial-gradient(circle at 86% 16%, rgba(255, 255, 255, 0.1), transparent 24%),
+          linear-gradient(180deg, transparent 74%, rgba(255, 255, 255, 0.04));
+      }
+
+      .hero-band::after {
+        right: -10%;
+        bottom: 36px;
+        width: 62%;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.08);
+        transform: rotate(-9deg);
+      }
+
+      .hero-inner,
+      .atlas-panel,
+      .safety-strip {
+        width: min(1472px, calc(100% - 64px));
+        margin: 0 auto;
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        gap: 34px;
+        padding: 28px 0 54px;
+      }
+
+      .topline {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #fff;
+        font-size: 28px;
+        font-weight: 880;
+      }
+
+      .brand-mark {
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: var(--red);
+        box-shadow: 0 16px 34px rgba(201, 31, 31, 0.28);
+        font-size: 22px;
+        font-weight: 950;
+      }
+
+      .brand em {
+        font-style: normal;
+        font-weight: 520;
+      }
+
+      .about-pill {
+        display: inline-flex;
+        align-items: center;
+        min-height: 38px;
+        border: 1px solid rgba(255, 255, 255, 0.44);
+        border-radius: 8px;
+        padding: 0 14px;
+        color: #fff;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 850;
+      }
+
+      .hero-copy {
+        max-width: 780px;
       }
 
       h1 {
-        max-width: 820px;
         margin: 0;
-        color: var(--red-dark);
-        font-size: clamp(34px, 8vw, 72px);
-        line-height: 0.95;
+        color: #fff;
+        font-size: clamp(44px, 4.6vw, 64px);
+        font-weight: 950;
+        line-height: 0.98;
         letter-spacing: 0;
       }
 
-      .demo-hero p {
-        max-width: 760px;
-        margin: 0;
-        color: var(--muted);
-        font-size: 18px;
-        font-weight: 720;
-        line-height: 1.5;
+      h1 span {
+        display: block;
       }
 
-      .demo-warning {
-        border: 1px solid rgba(201, 31, 31, 0.26);
-        border-left: 8px solid var(--red);
-        border-radius: 8px;
-        background: rgba(255, 255, 255, 0.82);
-        padding: 16px 18px;
-        font-weight: 760;
+      .hero-copy p {
+        max-width: 640px;
+        margin: 22px 0 0;
+        color: rgba(255, 255, 255, 0.76);
+        font-size: 21px;
+        font-weight: 540;
         line-height: 1.45;
       }
 
-      .demo-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 14px;
-        margin-top: 22px;
+      .story-flow {
+        position: absolute;
+        right: 24px;
+        bottom: 38px;
+        width: min(930px, 62vw);
+        height: 172px;
       }
 
-      .demo-card {
+      .flow-line,
+      .flow-red {
+        position: absolute;
+        left: 0;
+        right: 0;
+        display: block;
+        height: 118px;
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 58% 44% 0 0;
+        opacity: var(--alpha, 1);
+        transform: translateY(var(--y, 0)) rotate(var(--rotate, -5deg));
+      }
+
+      .flow-1 { --y: 0px; --alpha: 0.42; }
+      .flow-2 { --y: 10px; --alpha: 0.35; }
+      .flow-3 { --y: 20px; --alpha: 0.29; }
+      .flow-4 { --y: 30px; --alpha: 0.24; }
+      .flow-5 { --y: 40px; --alpha: 0.2; }
+      .flow-6 { --y: 50px; --alpha: 0.16; }
+      .flow-7 { --y: 60px; --alpha: 0.12; }
+
+      .flow-red {
+        left: 27%;
+        right: 3%;
+        top: 78px;
+        height: 42px;
+        border-top: 3px solid var(--red);
+        border-radius: 50% 36% 0 0;
+        box-shadow: 0 0 20px rgba(201, 31, 31, 0.12);
+        opacity: 0.98;
+        transform: rotate(-4deg);
+      }
+
+      .story-flow span {
+        position: absolute;
+        left: var(--x);
+        top: 78px;
+        transform: translateX(-50%);
         display: grid;
+        justify-items: center;
         gap: 8px;
-        min-height: 128px;
-        border: 1px solid var(--line);
-        border-radius: 8px;
+        width: 96px;
+        color: rgba(255, 255, 255, 0.9);
+        text-align: center;
+        font-size: 15px;
+        font-weight: 760;
+        line-height: 1.2;
+      }
+
+      .story-flow span::before {
+        content: "";
+        width: 14px;
+        height: 14px;
+        border: 2px solid rgba(255, 255, 255, 0.7);
+        border-radius: 999px;
+        background: #1a222e;
+        box-shadow: 0 0 0 3px rgba(201, 31, 31, 0.12);
+      }
+
+      .atlas-panel {
+        position: relative;
+        z-index: 2;
+        margin-top: -28px;
+        border: 1px solid rgba(219, 227, 239, 0.86);
+        border-radius: 12px;
         background: #fff;
-        padding: 18px;
+        box-shadow: 0 24px 58px rgba(15, 23, 42, 0.12);
+      }
+
+      .journey-grid {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 24px;
+        padding: 28px 32px 24px;
+      }
+
+      .journey-card {
+        position: relative;
+        display: grid;
+        grid-template-rows: auto auto 1fr auto;
+        gap: 14px;
+        min-height: 544px;
+        border: 0;
+        border-radius: 8px;
+        background: transparent;
+        padding: 44px 0 0;
         color: var(--ink);
         text-decoration: none;
-        box-shadow: 0 14px 30px rgba(34, 24, 20, 0.08);
+        transition: transform 160ms ease;
       }
 
-      .demo-card:focus-visible,
-      .demo-card:hover {
-        outline: 3px solid rgba(201, 31, 31, 0.28);
-        border-color: rgba(201, 31, 31, 0.42);
+      .journey-card::before {
+        content: "";
+        position: absolute;
+        top: 22px;
+        left: 50%;
+        width: calc(100% + 26px);
+        height: 1px;
+        background: var(--red);
+        transform: translateX(-50%);
       }
 
-      .demo-card span {
-        color: var(--red-dark);
-        font-size: 18px;
-        font-weight: 940;
+      .journey-card:first-child::before {
+        left: calc(50% + 44px);
+        width: calc(50% + 26px);
       }
 
-      .demo-card strong {
+      .journey-card:last-child::before {
+        left: auto;
+        right: calc(50% + 44px);
+        width: calc(50% + 26px);
+        transform: none;
+      }
+
+      .journey-card:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        top: 16px;
+        right: -15px;
+        width: 10px;
+        height: 10px;
+        border-top: 1.5px solid var(--red);
+        border-right: 1.5px solid var(--red);
+        transform: rotate(45deg);
+      }
+
+      .journey-card:hover,
+      .journey-card:focus-visible {
+        outline: 0;
+        transform: translateY(-3px);
+      }
+
+      .journey-card:hover .thumb,
+      .journey-card:focus-visible .thumb,
+      .journey-card:hover .open-link,
+      .journey-card:focus-visible .open-link {
+        border-color: rgba(201, 31, 31, 0.34);
+        box-shadow: 0 18px 34px rgba(15, 23, 42, 0.11);
+      }
+
+      .step-dot {
+        position: absolute;
+        top: 7px;
+        left: 50%;
+        z-index: 1;
+        transform: translateX(-50%);
+        display: grid;
+        place-items: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 999px;
+        background: var(--red);
+        color: #fff;
+        box-shadow: 0 0 0 8px #fff;
+        font-size: 16px;
+        font-weight: 950;
+      }
+
+      .card-copy {
+        text-align: center;
+      }
+
+      .card-copy h2 {
+        margin: 0;
+        font-size: 16px;
+        line-height: 1.18;
+      }
+
+      .card-copy p {
         color: var(--muted);
-        font-size: 13px;
-        word-break: break-word;
+        margin: 6px 0 0;
+        font-size: 12px;
+        font-weight: 690;
+        line-height: 1.35;
       }
 
-      .demo-footer {
-        margin-top: 26px;
+      .thumb {
+        position: relative;
+        overflow: hidden;
+        min-height: 390px;
+        border: 1px solid #dce3ee;
+        border-radius: 9px;
+        background: #fff;
+        box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
+        transition: border-color 160ms ease, box-shadow 160ms ease;
+      }
+
+      .open-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        justify-self: center;
+        gap: 8px;
+        width: 130px;
+        min-height: 40px;
+        border: 1px solid #dce3ee;
+        border-radius: 8px;
+        color: var(--ink);
+        background: #fff;
+        font-size: 15px;
+        font-weight: 900;
+        transition: border-color 160ms ease, box-shadow 160ms ease;
+      }
+
+      .open-link svg {
+        width: 15px;
+        height: 15px;
+        fill: none;
+        stroke: var(--red);
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.8;
+      }
+
+      .phone-frame {
+        position: relative;
+        width: 76%;
+        max-width: 176px;
+        height: 368px;
+        margin: 11px auto 0;
+        border: 7px solid #121820;
+        border-radius: 28px;
+        background: #fff;
+        padding: 32px 12px 10px;
+        box-shadow: 0 14px 26px rgba(15, 23, 42, 0.18);
+      }
+
+      .phone-notch {
+        position: absolute;
+        top: 8px;
+        left: 50%;
+        width: 46px;
+        height: 8px;
+        border-radius: 999px;
+        background: #121820;
+        transform: translateX(-50%);
+      }
+
+      .phone-status {
+        position: absolute;
+        top: 18px;
+        right: 16px;
+        display: flex;
+        gap: 3px;
+      }
+
+      .phone-status i {
+        width: 10px;
+        height: 4px;
+        border: 0;
+        border-radius: 4px;
+        background: #111827;
+      }
+
+      .phone-status i + i {
+        width: 6px;
+      }
+
+      .phone-top,
+      .verify-brand,
+      .desk-top,
+      .dash-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6px;
+      }
+
+      .phone-top {
+        justify-content: flex-start;
+        margin-bottom: 22px;
+      }
+
+      .phone-top b {
+        font-size: 8px;
+        font-weight: 900;
+      }
+
+      .phone-top i {
+        width: 12px;
+        height: 8px;
+        margin-left: auto;
+        border: 0;
+        background:
+          linear-gradient(#111827, #111827) 0 0 / 100% 1px,
+          linear-gradient(#111827, #111827) 0 50% / 100% 1px,
+          linear-gradient(#111827, #111827) 0 100% / 100% 1px;
+        background-repeat: no-repeat;
+      }
+
+      .mini-w {
+        display: grid;
+        place-items: center;
+        width: 16px;
+        height: 16px;
+        border-radius: 4px;
+        background: var(--red);
+        color: #fff;
+        font-size: 9px;
+        font-weight: 950;
+      }
+
+      .phone-frame > strong,
+      .verify-desk > strong,
+      .dash-head b,
+      .admin-main > b {
+        display: block;
+        font-size: 12px;
+        line-height: 1.2;
+      }
+
+      .phone-frame small,
+      .verify-desk small,
+      .verify-desk p,
+      .verify-desk li,
+      .queue-item span,
+      .metric-row small,
+      .chart-block li,
+      .issue-row small,
+      .bar-list,
+      .critical-list small,
+      .admin-side span,
+      .admin-main p {
+        display: block;
         color: var(--muted);
-        font-size: 13px;
+        font-size: 7px;
+        font-style: normal;
+        font-weight: 750;
+      }
+
+      .phone-frame > small {
+        margin-top: 7px;
+        max-width: 120px;
+      }
+
+      .primary-action {
+        display: inline-flex;
+        margin-top: 12px;
+        border-radius: 5px;
+        background: #121820;
+        color: #fff;
+        padding: 7px 9px;
+        font-size: 7px;
+        font-weight: 900;
+      }
+
+      .phone-frame h3,
+      .thumb h3 {
+        margin: 14px 0 7px;
+        color: var(--ink);
+        font-size: 8px;
+        line-height: 1.1;
+      }
+
+      .report-card {
+        display: grid;
+        gap: 4px;
+        margin-top: 6px;
+        border: 1px solid #e1e7f0;
+        border-radius: 7px;
+        padding: 8px;
+        background: #fbfdff;
+      }
+
+      .report-card b {
+        color: var(--ink);
+        font-size: 7px;
+        line-height: 1.2;
+      }
+
+      .report-card em {
+        justify-self: start;
+        border-radius: 4px;
+        background: #e8f0ff;
+        color: #1d4ed8;
+        padding: 2px 4px;
+        font-size: 6px;
+        font-style: normal;
+        font-weight: 900;
+      }
+
+      .report-card em.ok {
+        background: #dcfce7;
+        color: var(--green);
+      }
+
+      .phone-nav {
+        position: absolute;
+        right: 10px;
+        bottom: 9px;
+        left: 10px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        border-top: 1px solid #e1e7f0;
+        padding-top: 7px;
+        color: #64748b;
+        text-align: center;
+        font-size: 6px;
+        font-weight: 800;
+      }
+
+      .phone-nav b {
+        color: #2563eb;
+        font-size: 6px;
+      }
+
+      .thumb-verify {
+        display: grid;
+        grid-template-columns: 47% 53%;
+        background: #10141b;
+      }
+
+      .verify-rail {
+        display: grid;
+        align-content: start;
+        gap: 10px;
+        padding: 18px 10px;
+        background: #10141b;
+        color: #fff;
+      }
+
+      .verify-brand {
+        justify-content: flex-start;
+        align-items: flex-start;
+      }
+
+      .verify-brand b,
+      .verify-rail > strong {
+        display: block;
+        color: #fff;
+        font-size: 9px;
+        line-height: 1.1;
+      }
+
+      .verify-brand small,
+      .verify-rail > small {
+        color: rgba(255, 255, 255, 0.58);
+        font-size: 6px;
         font-weight: 700;
+        line-height: 1.2;
       }
 
-      @media (max-width: 780px) {
-        main {
-          width: min(100% - 20px, 560px);
-          padding: 28px 0;
+      .segmented {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+      }
+
+      .segmented b,
+      .segmented span {
+        display: grid;
+        place-items: center;
+        min-height: 22px;
+        border-radius: 5px;
+        background: #fff;
+        color: #111827;
+        font-size: 7px;
+        font-weight: 900;
+      }
+
+      .segmented span {
+        background: rgba(255, 255, 255, 0.11);
+        color: #fff;
+      }
+
+      .verify-search {
+        border: 1px solid rgba(255, 255, 255, 0.11);
+        border-radius: 6px;
+        padding: 7px 8px;
+        color: rgba(255, 255, 255, 0.46);
+        font-size: 7px;
+        font-weight: 750;
+      }
+
+      .queue-item {
+        position: relative;
+        display: grid;
+        gap: 3px;
+        padding-left: 12px;
+      }
+
+      .queue-item::before {
+        content: "";
+        position: absolute;
+        top: 4px;
+        left: 0;
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: var(--green);
+      }
+
+      .queue-item.amber::before {
+        background: var(--gold);
+      }
+
+      .queue-item.red::before {
+        background: #ef4444;
+      }
+
+      .queue-item b {
+        color: #fff;
+        font-size: 7px;
+        line-height: 1.15;
+      }
+
+      .verify-desk {
+        display: grid;
+        align-content: start;
+        gap: 9px;
+        padding: 18px 12px;
+        background: #fff;
+      }
+
+      .desk-top b {
+        font-size: 8px;
+      }
+
+      .desk-top span {
+        width: 26px;
+        height: 3px;
+        border-radius: 999px;
+        background: var(--red);
+        box-shadow: 12px 0 0 #e5e7eb, 24px 0 0 #e5e7eb;
+      }
+
+      .verify-desk > strong {
+        font-size: 13px;
+      }
+
+      .verify-desk p {
+        margin: 0;
+        line-height: 1.35;
+      }
+
+      .verify-desk ul {
+        display: grid;
+        gap: 5px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .suggestion {
+        display: grid;
+        gap: 7px;
+        border: 1px solid #e1e7f0;
+        border-radius: 8px;
+        padding: 10px;
+        background: #fbfdff;
+      }
+
+      .suggestion b {
+        color: #64748b;
+        font-size: 6px;
+      }
+
+      .suggestion strong {
+        color: var(--ink);
+        font-size: 10px;
+        line-height: 1.18;
+      }
+
+      .suggestion span {
+        display: inline-flex;
+        justify-self: start;
+        margin-right: 4px;
+        border: 1px solid #e1e7f0;
+        border-radius: 999px;
+        padding: 3px 5px;
+        color: #334155;
+        font-size: 6px;
+        font-weight: 800;
+      }
+
+      .thumb-mla,
+      .thumb-ministry,
+      .thumb-cm {
+        display: grid;
+        align-content: start;
+        gap: 10px;
+        padding: 16px 14px;
+      }
+
+      .dash-head b {
+        font-size: 10px;
+      }
+
+      .dash-head span {
+        border: 1px solid #e1e7f0;
+        border-radius: 6px;
+        padding: 5px 7px;
+        color: #64748b;
+        font-size: 6px;
+        font-weight: 900;
+      }
+
+      .metric-row {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 5px;
+      }
+
+      .thumb-cm .metric-row {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .admin-main .metric-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .metric-row span {
+        display: grid;
+        align-content: center;
+        gap: 3px;
+        min-height: 40px;
+        border: 1px solid #e1e7f0;
+        border-radius: 7px;
+        background: #fff;
+        padding: 5px;
+      }
+
+      .metric-row b {
+        display: grid;
+        color: var(--ink);
+        font-size: 13px;
+        line-height: 1;
+      }
+
+      .metric-row span:nth-child(2) b {
+        color: var(--green);
+      }
+
+      .metric-row span:last-child b {
+        color: var(--red);
+      }
+
+      .chart-block {
+        display: grid;
+        grid-template-columns: minmax(70px, 0.85fr) 1fr;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .donut {
+        width: 88px;
+        height: 88px;
+        margin: 4px auto;
+        border-radius: 999px;
+        background: conic-gradient(var(--blue) 0 45%, var(--green) 45% 73%, var(--gold) 73% 88%, #d9e1ec 88% 100%);
+        box-shadow: inset 0 0 0 25px #fff;
+      }
+
+      .donut.small {
+        width: 70px;
+        height: 70px;
+        box-shadow: inset 0 0 0 21px #fff;
+      }
+
+      .chart-block ul {
+        display: grid;
+        gap: 7px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .chart-block li {
+        display: grid;
+        grid-template-columns: 8px 1fr auto;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .chart-block li i {
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: var(--blue);
+      }
+
+      .chart-block li:nth-child(2) i {
+        background: var(--green);
+      }
+
+      .chart-block li:nth-child(3) i {
+        background: var(--gold);
+      }
+
+      .chart-block li:nth-child(4) i {
+        background: #94a3b8;
+      }
+
+      .chart-block li:nth-child(5) i {
+        background: #22c55e;
+      }
+
+      .issue-row {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 4px 8px;
+        padding-left: 12px;
+      }
+
+      .issue-row::before,
+      .critical-list span::before {
+        content: "";
+        position: absolute;
+        top: 4px;
+        left: 0;
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: var(--blue);
+      }
+
+      .issue-row b,
+      .critical-list b {
+        color: var(--ink);
+        font-size: 7px;
+        line-height: 1.2;
+      }
+
+      .issue-row span,
+      .critical-list em {
+        align-self: start;
+        border-radius: 5px;
+        padding: 3px 5px;
+        font-size: 6px;
+        font-style: normal;
+        font-weight: 900;
+      }
+
+      .issue-row.high span,
+      .critical-list span:first-child em {
+        border: 1px solid #fecaca;
+        color: var(--red);
+        background: #fff7f7;
+      }
+
+      .issue-row.medium span {
+        color: #92400e;
+        background: #fef3c7;
+      }
+
+      .issue-row.low span {
+        color: var(--green);
+        background: #dcfce7;
+      }
+
+      .issue-row small {
+        grid-column: 1 / -1;
+      }
+
+      .bar-list {
+        display: grid;
+        gap: 8px;
+      }
+
+      .bar-list span {
+        display: grid;
+        grid-template-columns: 72px minmax(0, 1fr) 24px;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .bar-list b,
+      .bar-list em {
+        color: var(--ink);
+        font-size: 7px;
+        font-style: normal;
+        line-height: 1;
+      }
+
+      .bar-list i {
+        height: 8px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--blue) var(--w, 62%), #e4eaf2 var(--w, 62%));
+      }
+
+      .red-bars i {
+        background: linear-gradient(90deg, var(--red) var(--w, 62%), #fee2e2 var(--w, 62%));
+      }
+
+      .mini-map {
+        position: relative;
+        min-height: 96px;
+        border: 1px solid #e1e7f0;
+        border-radius: 8px;
+        background:
+          linear-gradient(135deg, transparent 20%, rgba(47, 110, 234, 0.12) 20% 22%, transparent 22%),
+          linear-gradient(45deg, transparent 28%, rgba(47, 110, 234, 0.1) 28% 30%, transparent 30%),
+          #f5f8fc;
+      }
+
+      .mini-map i {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        border: 1px solid #2563eb;
+        border-radius: 999px;
+        background: rgba(47, 110, 234, 0.24);
+      }
+
+      .mini-map i:nth-child(1) { left: 30%; top: 38%; }
+      .mini-map i:nth-child(2) { left: 56%; top: 30%; }
+      .mini-map i:nth-child(3) { left: 68%; top: 58%; width: 24px; height: 24px; }
+      .mini-map i:nth-child(4) { left: 48%; top: 72%; width: 10px; height: 10px; }
+
+      .watch-pill {
+        justify-self: start;
+        border-radius: 6px;
+        background: #fee2e2;
+        color: var(--red);
+        padding: 5px 7px;
+        font-size: 8px;
+        line-height: 1;
+      }
+
+      .critical-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .critical-list span {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 4px 8px;
+        padding-left: 12px;
+      }
+
+      .critical-list span::before {
+        background: var(--red);
+      }
+
+      .critical-list small {
+        grid-column: 1 / -1;
+      }
+
+      .critical-list span:not(:first-child) em {
+        border: 1px solid #fecaca;
+        color: var(--red);
+        background: #fff7f7;
+      }
+
+      .thumb-admin {
+        display: grid;
+        grid-template-columns: 38% 62%;
+        padding: 0;
+      }
+
+      .admin-side {
+        display: grid;
+        align-content: start;
+        gap: 9px;
+        padding: 16px 10px;
+        background: #f0f4fb;
+      }
+
+      .admin-side h3 {
+        margin: 0 0 5px;
+        font-size: 9px;
+      }
+
+      .admin-side b,
+      .admin-side span {
+        display: flex;
+        align-items: center;
+        min-height: 21px;
+        border-radius: 5px;
+        padding: 6px 7px;
+        color: #334155;
+        font-size: 7px;
+        line-height: 1.05;
+      }
+
+      .admin-side b {
+        background: #dbeafe;
+        color: #1d4ed8;
+      }
+
+      .admin-main {
+        display: grid;
+        align-content: start;
+        gap: 10px;
+        padding: 18px 12px;
+      }
+
+      .admin-main p {
+        position: relative;
+        margin: 0;
+        padding-left: 12px;
+        color: var(--green);
+      }
+
+      .admin-main p::before {
+        content: "";
+        position: absolute;
+        top: 4px;
+        left: 0;
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: #22c55e;
+      }
+
+      .safety-strip {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        margin-top: 24px;
+        margin-bottom: 32px;
+        border: 1px solid #e5ebf3;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #fff, #f2f6fc);
+        padding: 13px 20px;
+        color: #27354a;
+      }
+
+      .safety-mark {
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        border: 1.5px solid #91b7ff;
+        border-radius: 999px;
+        color: #1d4ed8;
+        font-weight: 950;
+      }
+
+      .safety-strip strong,
+      .safety-strip span {
+        display: inline;
+      }
+
+      .safety-strip strong {
+        color: #27354a;
+        font-size: 16px;
+        letter-spacing: 0;
+      }
+
+      .safety-strip span {
+        margin-left: 8px;
+        color: #334155;
+        font-size: 15px;
+        font-weight: 720;
+        line-height: 1.35;
+      }
+
+      .demo-footer-note {
+        margin-top: 10px;
+        color: rgba(255, 255, 255, 0.54);
+        font-size: 12px;
+        font-weight: 720;
+      }
+
+      @media (max-width: 1180px) {
+        .story-flow {
+          position: relative;
+          right: auto;
+          bottom: auto;
+          width: 100%;
+          margin-top: 8px;
         }
 
-        .demo-grid {
+        .journey-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .journey-card::before,
+        .journey-card::after {
+          display: none;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .hero-inner,
+        .atlas-panel,
+        .safety-strip {
+          width: min(100% - 24px, 560px);
+        }
+
+        .hero-inner {
+          padding-top: 22px;
+        }
+
+        .topline {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        h1 {
+          font-size: clamp(38px, 13vw, 56px);
+        }
+
+        .hero-copy p {
+          font-size: 17px;
+        }
+
+        .story-flow {
+          display: none;
+        }
+
+        .journey-grid {
           grid-template-columns: 1fr;
+          padding: 26px 14px 18px;
+        }
+
+        .journey-card {
+          min-height: 0;
+          padding-top: 34px;
+        }
+
+        .step-dot {
+          top: 0;
+        }
+
+        .thumb {
+          min-height: 390px;
+        }
+
+        .safety-strip {
+          align-items: flex-start;
+          justify-content: flex-start;
+          flex-wrap: wrap;
         }
       }
     </style>
   </head>
   <body>
-    <main>
-      <section class="demo-hero" aria-labelledby="demo-title">
-        <span class="demo-kicker">SAMPLE DATA - DEMO ONLY</span>
-        <h1 id="demo-title">Whistle static demo pages</h1>
-        <p>Browser-local demonstrations generated from the real standalone app exports. These pages use bundled fixture data and do not connect to production, staging, or any live government system.</p>
+    <main class="demo-shell" aria-label="Whistle static demo pages">
+      <section class="hero-band" aria-labelledby="demo-title">
+        <div class="hero-inner">
+          <div class="topline">
+            <div class="brand" aria-label="Whistle demos">
+              <span class="brand-mark">W</span>
+              <span>Whistle <em>demos</em></span>
+            </div>
+            <a class="about-pill" href="#demo-safety">About this demo</a>
+          </div>
+          <div class="hero-copy">
+            <h1 id="demo-title"><span>Six app surfaces.</span><span>One sample-data story.</span></h1>
+            <p>Walk through citizen intake, verification, local closure, ministry oversight, CM Cell command, and admin controls.</p>
+            <div class="demo-footer-note">SAMPLE DATA - DEMO ONLY. No live systems. Browser-local static demo pages.</div>
+          </div>
+          <div class="story-flow" aria-hidden="true">
+            <i class="flow-line flow-1"></i>
+            <i class="flow-line flow-2"></i>
+            <i class="flow-line flow-3"></i>
+            <i class="flow-line flow-4"></i>
+            <i class="flow-line flow-5"></i>
+            <i class="flow-line flow-6"></i>
+            <i class="flow-line flow-7"></i>
+            <i class="flow-red"></i>
+            <span style="--x: 12%">Intake</span>
+<span style="--x: 28%">Verify</span>
+<span style="--x: 44%">Local closure</span>
+<span style="--x: 60%">Ministry oversight</span>
+<span style="--x: 76%">CM Cell command</span>
+<span style="--x: 92%">Admin controls</span>
+          </div>
+        </div>
       </section>
 
-      <section class="demo-warning" aria-label="Demo publication notice">
-        This is a prototype demonstration only. It is not affiliated with any government, department, elected representative, party, or official service. Do not enter real complaints, phone numbers, passwords, OTPs, evidence, or personal data.
+      <section class="atlas-panel" aria-label="Product journey atlas">
+        <nav class="journey-grid" aria-label="Other Whistle demo pages">
+          <a class="journey-card citizen" href="./citizen.demo.html" aria-label="Open Citizen Mobile PWA demo">
+        <span class="step-dot">1</span>
+        <div class="card-copy">
+          <h2>Citizen Mobile PWA</h2>
+          <p>Report issues on the go</p>
+        </div>
+        <div class="thumb thumb-citizen" aria-hidden="true">
+      <div class="phone-frame">
+        <span class="phone-notch"></span>
+        <div class="phone-status"><i></i><i></i></div>
+        <div class="phone-top">
+          <span class="mini-w">W</span>
+          <b>Whistle</b>
+          <i></i>
+        </div>
+        <strong>Report an issue</strong>
+        <small>Your report creates accountability.</small>
+        <span class="primary-action">Report now</span>
+        <h3>Recent updates</h3>
+        <div class="report-card">
+          <b>Water supply contaminated in Ward 12</b>
+          <em class="ok">Under review</em>
+          <small>TKT-4821 · 3h ago</small>
+        </div>
+        <div class="report-card">
+          <b>Streetlight not working near bus stop</b>
+          <em>Submitted</em>
+          <small>TKT-4810 · 1d ago</small>
+        </div>
+        <div class="phone-nav"><b>Home</b><span>My reports</span><span>Profile</span></div>
+      </div>
+    </div>
+        <span class="open-link">Open
+          <svg aria-hidden="true" viewBox="0 0 16 16" focusable="false">
+            <path d="M6 3.5H3.5A1.5 1.5 0 0 0 2 5v7.5A1.5 1.5 0 0 0 3.5 14H11a1.5 1.5 0 0 0 1.5-1.5V10" />
+            <path d="M9 2h5v5" />
+            <path d="M8 8l6-6" />
+          </svg>
+        </span>
+      </a>
+<a class="journey-card verification" href="./verification.demo.html" aria-label="Open Verification Console demo">
+        <span class="step-dot">2</span>
+        <div class="card-copy">
+          <h2>Verification Console</h2>
+          <p>Verify, decide, and act</p>
+        </div>
+        <div class="thumb thumb-verify" aria-hidden="true">
+      <div class="verify-rail">
+        <div class="verify-brand"><span class="mini-w">W</span><div><b>Verify</b><small>Whistle Verification Console</small></div></div>
+        <strong>3 of 12 cleared</strong>
+        <small>4 pending review · 2 data watch · 1 protected</small>
+        <div class="segmented"><b>All</b><span>Standard</span></div>
+        <div class="verify-search">Search</div>
+        <div class="queue-item amber"><b>Water · Ward 12</b><span>TKT-4821 · 3h left</span></div>
+        <div class="queue-item red"><b>Protected · Srirangam</b><span>TKT-4877 · 1h left</span></div>
+        <div class="queue-item green"><b>Power · NH-44 service</b><span>TKT-4810 · 2d left</span></div>
+        <div class="queue-item green"><b>Sanitation · Sector 7</b><span>TKT-4806 · 3d left</span></div>
+      </div>
+      <div class="verify-desk">
+        <div class="desk-top"><b>Intake decision bench</b><span></span></div>
+        <small>TKT-4821 · WATER · MADURAI SOUTH</small>
+        <strong>Water supply contaminated in Ward 12</strong>
+        <p>Residents report discolored, foul-smelling water across 60+ households.</p>
+        <ul>
+          <li>Anna Nagar junction main</li>
+          <li>Water Board · +91-******1043</li>
+          <li>2 evidence files</li>
+        </ul>
+        <div class="suggestion">
+          <b>SUGGESTED DECISION</b>
+          <strong>Route -> Water Board, Madurai South</strong>
+          <span>Water Board</span><span>No protected signal</span>
+        </div>
+      </div>
+    </div>
+        <span class="open-link">Open
+          <svg aria-hidden="true" viewBox="0 0 16 16" focusable="false">
+            <path d="M6 3.5H3.5A1.5 1.5 0 0 0 2 5v7.5A1.5 1.5 0 0 0 3.5 14H11a1.5 1.5 0 0 0 1.5-1.5V10" />
+            <path d="M9 2h5v5" />
+            <path d="M8 8l6-6" />
+          </svg>
+        </span>
+      </a>
+<a class="journey-card mla" href="./mla.demo.html" aria-label="Open MLA Dashboard demo">
+        <span class="step-dot">3</span>
+        <div class="card-copy">
+          <h2>MLA Dashboard</h2>
+          <p>Track local issues &amp; progress</p>
+        </div>
+        <div class="thumb thumb-mla" aria-hidden="true">
+      <div class="dash-head"><b>MLA Dashboard</b><span>This month</span></div>
+      <div class="metric-row"><span><small>Total issues</small><b>532</b></span><span><small>Resolved</small><b>312</b></span><span><small>In progress</small><b>158</b></span><span><small>Overdue</small><b>62</b></span></div>
+      <h3>By category</h3>
+      <div class="chart-block"><div class="donut"></div><ul><li><i></i>Water <b>45%</b></li><li><i></i>Roads <b>22%</b></li><li><i></i>Power <b>15%</b></li><li><i></i>Sanitation <b>10%</b></li></ul></div>
+      <h3>Recent issues</h3>
+      <div class="issue-row high"><b>Water supply contaminated in Ward 12</b><span>High</span><small>TKT-4821 · Anna Nagar</small></div>
+      <div class="issue-row medium"><b>Streetlight not working near bus stop</b><span>Medium</span><small>TKT-4810 · KK Nagar</small></div>
+      <div class="issue-row low"><b>Drainage overflow on 3rd Cross St</b><span>Low</span><small>TKT-4799 · West Masi St</small></div>
+    </div>
+        <span class="open-link">Open
+          <svg aria-hidden="true" viewBox="0 0 16 16" focusable="false">
+            <path d="M6 3.5H3.5A1.5 1.5 0 0 0 2 5v7.5A1.5 1.5 0 0 0 3.5 14H11a1.5 1.5 0 0 0 1.5-1.5V10" />
+            <path d="M9 2h5v5" />
+            <path d="M8 8l6-6" />
+          </svg>
+        </span>
+      </a>
+<a class="journey-card ministry" href="./ministry.demo.html" aria-label="Open Minister Dashboard demo">
+        <span class="step-dot">4</span>
+        <div class="card-copy">
+          <h2>Minister Dashboard</h2>
+          <p>Oversight &amp; department view</p>
+        </div>
+        <div class="thumb thumb-ministry" aria-hidden="true">
+      <div class="dash-head"><b>Minister Dashboard</b><span>This month</span></div>
+      <div class="metric-row"><span><small>Total issues</small><b>3.8K</b></span><span><small>Resolved</small><b>2.1K</b></span><span><small>In progress</small><b>1.1K</b></span><span><small>Overdue</small><b>512</b></span></div>
+      <h3>By department</h3>
+      <div class="bar-list">
+        <span><b>Water Board</b><i style="--w: 92%"></i><em>1.2K</em></span>
+        <span><b>Highways</b><i style="--w: 74%"></i><em>880</em></span>
+        <span><b>Electricity</b><i style="--w: 55%"></i><em>560</em></span>
+        <span><b>Municipal Admin</b><i style="--w: 50%"></i><em>540</em></span>
+        <span><b>Rural Development</b><i style="--w: 38%"></i><em>380</em></span>
+        <span><b>Others</b><i style="--w: 28%"></i><em>240</em></span>
+      </div>
+      <h3>State map overview</h3>
+      <div class="mini-map"><i></i><i></i><i></i><i></i></div>
+    </div>
+        <span class="open-link">Open
+          <svg aria-hidden="true" viewBox="0 0 16 16" focusable="false">
+            <path d="M6 3.5H3.5A1.5 1.5 0 0 0 2 5v7.5A1.5 1.5 0 0 0 3.5 14H11a1.5 1.5 0 0 0 1.5-1.5V10" />
+            <path d="M9 2h5v5" />
+            <path d="M8 8l6-6" />
+          </svg>
+        </span>
+      </a>
+<a class="journey-card cm-cell" href="./cm-cell.demo.html" aria-label="Open CM Cell Dashboard demo">
+        <span class="step-dot">5</span>
+        <div class="card-copy">
+          <h2>CM Cell Dashboard</h2>
+          <p>Escalations &amp; critical watch</p>
+        </div>
+        <div class="thumb thumb-cm" aria-hidden="true">
+      <div class="dash-head"><b>CM Cell Dashboard</b></div>
+      <strong class="watch-pill">Critical watch</strong>
+      <div class="metric-row"><span><small>Escalated</small><b>126</b></span><span><small>Red alerts</small><b>24</b></span><span><small>Avg. response time</small><b>4h 18m</b></span></div>
+      <h3>Critical issues</h3>
+      <div class="critical-list">
+        <span><b>Bribery demand during certificate renewal</b><em>Critical</em><small>TKT-4817 · Tiruchirappalli</small></span>
+        <span><b>Water contamination in Ward 12</b><em>High</em><small>TKT-4821 · Madurai South</small></span>
+        <span><b>Hospital cleanliness complaint</b><em>High</em><small>TKT-4802 · Chennai</small></span>
+      </div>
+      <h3>Top departments by escalations</h3>
+      <div class="bar-list red-bars">
+        <span><b>Revenue Department</b><i style="--w: 82%"></i><em>48</em></span>
+        <span><b>Police Department</b><i style="--w: 52%"></i><em>26</em></span>
+        <span><b>Municipal Admin</b><i style="--w: 42%"></i><em>18</em></span>
+        <span><b>Transport Department</b><i style="--w: 31%"></i><em>14</em></span>
+      </div>
+    </div>
+        <span class="open-link">Open
+          <svg aria-hidden="true" viewBox="0 0 16 16" focusable="false">
+            <path d="M6 3.5H3.5A1.5 1.5 0 0 0 2 5v7.5A1.5 1.5 0 0 0 3.5 14H11a1.5 1.5 0 0 0 1.5-1.5V10" />
+            <path d="M9 2h5v5" />
+            <path d="M8 8l6-6" />
+          </svg>
+        </span>
+      </a>
+<a class="journey-card admin" href="./admin.demo.html" aria-label="Open Admin Console demo">
+        <span class="step-dot">6</span>
+        <div class="card-copy">
+          <h2>Admin Console</h2>
+          <p>Users, roles &amp; system</p>
+        </div>
+        <div class="thumb thumb-admin" aria-hidden="true">
+    <div class="admin-side"><h3>Admin Console</h3><b>Overview</b><span>Users</span><span>Roles & permissions</span><span>Departments</span><span>Categories</span><span>Workflows</span><span>SLA policies</span><span>Integrations</span><span>Audit logs</span><span>System settings</span></div>
+    <div class="admin-main">
+      <b>Overview</b>
+      <div class="metric-row"><span><small>Total users</small><b>1,842</b></span><span><small>Active users</small><b>1,210</b></span></div>
+      <h3>By role</h3>
+      <div class="chart-block"><div class="donut small"></div><ul><li><i></i>Verifier <b>620</b></li><li><i></i>Department <b>480</b></li><li><i></i>MLA Staff <b>430</b></li><li><i></i>CM Cell <b>180</b></li><li><i></i>Admin <b>122</b></li></ul></div>
+      <h3>System health</h3>
+      <p>All systems operational</p>
+    </div>
+  </div>
+        <span class="open-link">Open
+          <svg aria-hidden="true" viewBox="0 0 16 16" focusable="false">
+            <path d="M6 3.5H3.5A1.5 1.5 0 0 0 2 5v7.5A1.5 1.5 0 0 0 3.5 14H11a1.5 1.5 0 0 0 1.5-1.5V10" />
+            <path d="M9 2h5v5" />
+            <path d="M8 8l6-6" />
+          </svg>
+        </span>
+      </a>
+        </nav>
       </section>
 
-      <nav class="demo-grid" aria-label="Demo pages">
-        <a class="demo-card" href="./citizen.demo.html">
-        <span>Citizen Mobile PWA</span>
-        <strong>citizen.demo.html</strong>
-      </a>
-<a class="demo-card" href="./verification.demo.html">
-        <span>Verification Console</span>
-        <strong>verification.demo.html</strong>
-      </a>
-<a class="demo-card" href="./mla.demo.html">
-        <span>MLA Dashboard</span>
-        <strong>mla.demo.html</strong>
-      </a>
-<a class="demo-card" href="./ministry.demo.html">
-        <span>Minister Dashboard</span>
-        <strong>ministry.demo.html</strong>
-      </a>
-<a class="demo-card" href="./cm-cell.demo.html">
-        <span>CM Cell Dashboard</span>
-        <strong>cm-cell.demo.html</strong>
-      </a>
-<a class="demo-card" href="./admin.demo.html">
-        <span>Admin Console</span>
-        <strong>admin.demo.html</strong>
-      </a>
-      </nav>
-
-      <p class="demo-footer">Every app page carries an in-page SAMPLE DATA - DEMO ONLY watermark and uses synthetic fixture data.</p>
+      <section class="safety-strip" id="demo-safety" aria-label="Demo publication notice" data-notice="not affiliated with any government entity">
+        <div class="safety-mark">W</div>
+        <div>
+          <strong>Sample data only.</strong>
+          <span>No live systems. Not affiliated with any government entity.</span>
+        </div>
+      </section>
     </main>
   </body>
 </html>
