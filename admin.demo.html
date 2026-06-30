@@ -147,17 +147,28 @@ import{i as e,n as t,r as n,t as r}from"data:text/javascript;base64,dmFyIGU9T2Jq
 }
 @media (max-width: 620px) {
   #whistle-demo-label {
+    left: 8px;
     right: 8px;
     bottom: 8px;
-    max-width: calc(100vw - 16px);
-    font-size: 11px;
+    max-width: min(150px, calc(100vw - 108px));
+    border-radius: 6px;
+    padding: 6px 7px;
+    font-size: 9px;
+    line-height: 1.05;
+  }
+  #whistle-demo-label span {
+    display: none;
   }
   #whistle-demo-hub {
     right: 8px;
-    bottom: 86px;
+    bottom: 8px;
+    min-height: 30px;
+    padding: 0 9px;
+    font-size: 11px;
   }
   #whistle-demo-watermark {
-    font-size: 42px;
+    color: rgba(127, 29, 29, 0.045);
+    font-size: 34px;
   }
 }
 @media print {
